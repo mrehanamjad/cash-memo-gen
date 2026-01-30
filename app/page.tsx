@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import  { useEffect, useState } from 'react';
 import { sendReceiptEmail } from './actions/actions';
+import { HardDriveDownload, Loader2, Mail } from 'lucide-react';
 
 // Define the shape of our invoice item
 type Item = {
@@ -124,7 +125,7 @@ useEffect(() => {
 
             <div>
               <h1 className="text-4xl font-extrabold tracking-wide uppercase">ScrubX</h1>
-              <p className="text-red-100 font-medium tracking-wider text-sm mt-1">Premium Medical Gear</p>
+              <p className="text-red-100 font-medium tracking-wider text-sm mt-1">Premium Medical APPAREL</p>
             </div>
           </div>
 
@@ -176,9 +177,9 @@ useEffect(() => {
             <div className="text-right w-1/2">
               <h3 className="font-bold text-gray-800 text-lg mb-2">From:</h3>
               <p className="font-semibold text-gray-900">ScrubX Headquarters</p>
-              <p>123 Medical Plaza</p>
               <p>Karachi, Pakistan</p>
-              <p className="mt-2">contact@scrubx.com</p>
+              <p className="mt-2">scrubx.pk@gmail.com</p>
+              <p>+92 301 0221483</p>
             </div>
           </div>
 
@@ -201,7 +202,7 @@ useEffect(() => {
                       type="text"
                       value={item.description}
                       onChange={(e) => updateItem(item.id, 'description', e.target.value)}
-                      className="w-full outline-none bg-transparent placeholder-gray-400"
+                      className="w-full outline-none bg-transparent text-gray-800 placeholder-gray-500"
                       placeholder="Enter product name..."
                     />
                   </td>
@@ -211,7 +212,7 @@ useEffect(() => {
                       value={item.qty}
                       min="0"
                       onChange={(e) => updateItem(item.id, 'qty', Number(e.target.value))}
-                      className="w-full text-center outline-none bg-transparent"
+                      className="w-full text-center outline-none bg-transparent text-gray-800"
                     />
                   </td>
                   <td className="py-3">
@@ -220,7 +221,7 @@ useEffect(() => {
                       value={item.price}
                       min="0"
                       onChange={(e) => updateItem(item.id, 'price', Number(e.target.value))}
-                      className="w-full text-right outline-none bg-transparent"
+                      className="w-full text-right outline-none bg-transparent text-gray-800"
                     />
                   </td>
                   <td className="py-3 text-right font-medium text-gray-700">
@@ -264,7 +265,7 @@ useEffect(() => {
                     type="number"
                     value={advance}
                     onChange={(e) => setAdvance(Number(e.target.value))}
-                    className="w-20 text-right bg-white border rounded px-1 text-sm focus:border-red-900 outline-none print:hidden"
+                    className="w-20 text-right text-gray-800 bg-white border rounded px-1 text-sm focus:border-red-900 outline-none print:hidden"
                   />
                   <span className="hidden print:block font-bold">Rs. {advance.toLocaleString()}</span>
                 </div>
@@ -306,9 +307,9 @@ useEffect(() => {
             <div className="flex gap-4">
               <button
                 onClick={handlePrint}
-                className="bg-gray-800 text-white px-8 py-3 rounded-lg hover:bg-gray-900 shadow-lg font-medium"
+                className="bg-gray-800 text-white px-8 py-3 rounded-lg flex justify-center items-center hover:bg-gray-900 shadow-lg font-medium"
               >
-                🖨️ Print
+                <HardDriveDownload className="w-4 h-4 mr-2" /> Print / Save
               </button>
               
               <button
@@ -318,7 +319,15 @@ useEffect(() => {
                   isSending ? 'bg-red-400' : 'bg-red-900 hover:bg-red-800'
                 }`}
               >
-                {isSending ? 'Sending...' : '✉️ Send Invoice'}
+                {isSending ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 inline-block animate-spin" /> Sending...
+                  </>
+                ) : (
+                  <>
+                    <Mail className="w-4 h-4 mr-2 inline-block" /> Send Email
+                  </>
+                )}
               </button>
             </div>
         </div>
