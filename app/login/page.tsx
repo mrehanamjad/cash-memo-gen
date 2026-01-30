@@ -44,7 +44,7 @@ export default function LoginPage() {
                 type="password"
                 required
                 placeholder="••••••••"
-                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-900 focus:border-red-900 outline-none transition-all"
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-red-900 focus:border-red-900 outline-none transition-all text-gray-800"
               />
             </div>
 
