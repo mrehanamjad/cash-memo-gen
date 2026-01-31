@@ -239,7 +239,6 @@ type EmailPayload = {
   receiptId: string;
   subTotal: number;
   discount: number;
-  tax: number;
   delivery: number;
   grandTotal: number;
   advance: number;
@@ -255,7 +254,6 @@ export async function sendReceiptEmail(data: EmailPayload) {
       receiptId, 
       subTotal,
       discount,
-      tax,
       delivery,
       grandTotal, 
       advance, 
@@ -395,12 +393,6 @@ export async function sendReceiptEmail(data: EmailPayload) {
               <tr>
                 <td class="text-muted" style="text-align: right; padding: 3px 0; font-size: 14px;">Discount:</td>
                 <td class="text-main" style="text-align: right; font-weight: 600; padding: 3px 0; color: #dc2626; font-size: 14px;">- Rs. ${discount.toLocaleString()}</td>
-              </tr>` : ''}
-
-              ${tax > 0 ? `
-              <tr>
-                <td class="text-muted" style="text-align: right; padding: 3px 0; font-size: 14px;">Tax:</td>
-                <td class="text-main" style="text-align: right; font-weight: 600; padding: 3px 0; font-size: 14px;">+ Rs. ${tax.toLocaleString()}</td>
               </tr>` : ''}
 
                ${delivery > 0 ? `

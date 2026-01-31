@@ -374,7 +374,7 @@ const PRODUCTS = [
 ];
 
 const SIZES = ['SX', 'S', 'M', 'L', 'XL', 'XXL'];
-const COLORS = ['Maroon', 'Black', 'Blue'];
+const COLORS = ['Maroon', 'Black', 'Blue','White'];
 
 // --- TYPES ---
 type LineItem = {
@@ -409,7 +409,6 @@ function CashMemo() {
   const [discount, setDiscount] = useState<number>(0);
   const [discountType, setDiscountType] = useState<'percent' | 'fixed'>('fixed'); // 'percent' or 'fixed'
   const [delivery, setDelivery] = useState<number>(0);
-  const [tax, setTax] = useState<number>(0);
 
   const [itemGroups, setItemGroups] = useState<ItemGroup[]>([
     {
@@ -546,7 +545,7 @@ function CashMemo() {
 
   const discountAmount = discountType === 'percent' ? Math.round((subTotal * discount) / 100) : discount;
   const totalAfterDiscount = subTotal - discountAmount;
-  const grandTotal = totalAfterDiscount + tax + delivery;
+  const grandTotal = totalAfterDiscount  + delivery;
   const balanceDue = grandTotal - advance;
 
   // --- ACTIONS ---
@@ -565,7 +564,6 @@ function CashMemo() {
       receiptId,
       subTotal,
       discount: discountAmount,
-      tax,
       delivery,
       grandTotal,
       advance,
@@ -788,16 +786,6 @@ function CashMemo() {
                       {discount > 0 ? `- ${discountAmount.toLocaleString()}` : '0'}
                     </span>
                    </div>
-                </div>
-              </div>
-
-              {/* Tax */}
-              <div className="flex justify-between items-center py-1 border-b border-gray-200 text-sm">
-                <span className="text-gray-600 font-medium">Tax:</span>
-                <div className="flex items-center justify-end w-24">
-                  <span className="mr-1 text-gray-400 text-xs print:hidden">Rs.</span>
-                  <input type="number" value={tax} onChange={(e) => setTax(Number(e.target.value))} className="w-16 text-right text-gray-800 bg-white border rounded px-1 text-xs focus:border-red-900 outline-none print:hidden" />
-                  <span className="hidden print:block text-gray-800">{tax > 0 ? `+ ${tax.toLocaleString()}` : '0'}</span>
                 </div>
               </div>
 
