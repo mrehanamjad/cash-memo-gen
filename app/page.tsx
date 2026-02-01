@@ -409,6 +409,7 @@ function CashMemo() {
   const [discount, setDiscount] = useState<number>(0);
   const [discountType, setDiscountType] = useState<'percent' | 'fixed'>('fixed'); // 'percent' or 'fixed'
   const [delivery, setDelivery] = useState<number>(0);
+  const [tax, setTax] = useState<number>(0);
 
   const [itemGroups, setItemGroups] = useState<ItemGroup[]>([
     {
@@ -545,7 +546,7 @@ function CashMemo() {
 
   const discountAmount = discountType === 'percent' ? Math.round((subTotal * discount) / 100) : discount;
   const totalAfterDiscount = subTotal - discountAmount;
-  const grandTotal = totalAfterDiscount  + delivery;
+  const grandTotal = totalAfterDiscount + tax  + delivery;
   const balanceDue = grandTotal - advance;
 
   // --- ACTIONS ---
@@ -565,6 +566,7 @@ function CashMemo() {
       subTotal,
       discount: discountAmount,
       delivery,
+      tax,
       grandTotal,
       advance,
       balance: balanceDue
@@ -754,7 +756,7 @@ function CashMemo() {
               </div>
 
               {/* Discount with Type Toggle */}
-              <div className="flex justify-between items-center py-1 border-b border-gray-200 text-sm">
+              <div className={`flex justify-between items-center py-1 border-b border-gray-200 text-sm ${discountAmount > 0 ? 'print:block' : 'print:hidden'}`}>
                 <span className="text-gray-600 font-medium">Discount:</span>
                 <div className="flex items-center justify-end">
                    <div className="print:hidden flex mr-2 border border-gray-300 rounded overflow-hidden">
@@ -782,20 +784,31 @@ function CashMemo() {
                         onChange={(e) => setDiscount(Number(e.target.value))} 
                         className="w-16 text-right text-gray-800 bg-white border rounded px-1 text-xs focus:border-red-900 outline-none print:hidden" 
                     />
-                    <span className="hidden print:block text-gray-800">
+                    <span className={`hidden print:block  text-gray-800`}>
                       {discount > 0 ? `- ${discountAmount.toLocaleString()}` : '0'}
                     </span>
                    </div>
                 </div>
               </div>
 
+
+              {/* Tax */}
+              <div className={`flex justify-between items-center py-1 border-b border-gray-200 text-sm ${tax > 0 ? 'print:block' : 'print:hidden'}`}>
+                <span className="text-gray-600 font-medium">Tax:</span>
+                <div className="flex items-center justify-end w-24">
+                  <span className="mr-1 text-gray-400 text-xs print:hidden">Rs.</span>
+                  <input type="number" value={tax} onChange={(e) => setTax(Number(e.target.value))} className="w-16 text-right text-gray-800 bg-white border rounded px-1 text-xs focus:border-red-900 outline-none print:hidden" />
+                  <span className={`hidden print:block  text-gray-800`}>{tax > 0 ? `+ ${tax.toLocaleString()}` : '0'}</span>
+                </div>
+              </div>
+
                {/* Delivery */}
-               <div className="flex justify-between items-center py-1 border-b border-gray-200 text-sm">
+               <div className={`flex justify-between items-center py-1 border-b border-gray-200 text-sm ${delivery > 0 ? 'print:block' : 'print:hidden'}`}>
                 <span className="text-gray-600 font-medium">Delivery:</span>
                 <div className="flex items-center justify-end w-24">
                   <span className="mr-1 text-gray-400 text-xs print:hidden">Rs.</span>
                   <input type="number" value={delivery} onChange={(e) => setDelivery(Number(e.target.value))} className="w-16 text-right text-gray-800 bg-white border rounded px-1 text-xs focus:border-red-900 outline-none print:hidden" />
-                  <span className="hidden print:block text-gray-800">{delivery > 0 ? `+ ${delivery.toLocaleString()}` : '0'}</span>
+                  <span className={`hidden print:block  text-gray-800`}>{delivery > 0 ? `+ ${delivery.toLocaleString()}` : '0'}</span>
                 </div>
               </div>
 
@@ -858,3 +871,4 @@ function CashMemo() {
 }
 
 export default CashMemo;
+
