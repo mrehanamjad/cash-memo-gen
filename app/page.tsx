@@ -1483,7 +1483,7 @@ function CashMemo() {
               <div className="text-sm text-gray-700 font-medium mb-2">
               or{' '}
                 <a 
-                  href="https://pay.scrubx.pk" 
+                  href="https://linktr.ee/scrubx" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-red-900 underline hover:text-red-700 font-semibold"
