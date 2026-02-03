@@ -1469,7 +1469,7 @@ function CashMemo() {
           <div className="flex justify-center items-center mb-6 p-4 bg-gray-50 rounded border border-gray-100 print:border-none print:bg-transparent print:p-0 print:m-0">
             <div className="text-center">
               <p className="text-sm text-gray-700 font-medium mb-2">
-                For payment, scan
+                For payment and other details, scan
               </p>
               <div className="inline-block bg-white p-3 rounded shadow-sm border border-gray-200">
                 <Image 
@@ -1478,7 +1478,7 @@ function CashMemo() {
                   width={120} 
                   height={120}
                   className="mx-auto"
-                />
+                  />
               </div>
               <div className="text-sm text-gray-700 font-medium mb-2">
               or{' '}
